@@ -31,7 +31,7 @@ type Transaction struct {
 func postTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if _, err := db.Exec(`CREATE TABLE IF NOT EXISTS transactions (id SERIAL, datetime timestamptz, 
-										cents_amount NUMERIC (16, 2), currency_code VARCHAR NOT NULL, 
+										cents_amount bigint, currency_code VARCHAR NOT NULL, 
 										reference VARCHAR NOT NULL, merchant_name VARCHAR NOT NULL,
 										merchant_city VARCHAR NOT NULL, merchant_country_code VARCHAR NOT NULL,
 										merchant_country_name VARCHAR NOT NULL, merchant_category_code VARCHAR NOT NULL, 
