@@ -51,7 +51,7 @@ func postTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 				(datetime, cents_amount, currency_code, reference, merchant_name,
 				merchant_city, merchant_country_code, merchant_country_name, 
 				merchant_category_code, merchant_category_name)
-				VALUES (:date_time, :cents_amount, :currency_code, :reference, :merchant_name,
+				VALUES (:datetime, :cents_amount, :currency_code, :reference, :merchant_name,
 				:merchant_city, :merchant_country_code, :merchant_country_name, 
 				:merchant_category_code, :merchant_category_name)`
 		tx := db.MustBegin()
