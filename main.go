@@ -49,9 +49,11 @@ func postTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 
 		insertStatement := `INSERT INTO transactions
 				(dateTime, centsAmount, currencyCode, reference, merchantName,
-				merchantCity, merchantCountryCode, merchantCategoryName, 
+				merchantCity, merchantCountryCode, merchantCountryName, 
 				merchantCategoryCode, merchantCategoryName)
-				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`
+				VALUES (:dateTime, :centsAmount, :currencyCode, :reference, :merchantName,
+				:merchantCity, :merchantCountryCode, :merchantCountryName, 
+				:merchantCategoryCode, :merchantCategoryName)`
 		tx := db.MustBegin()
 		_, err := tx.NamedExec(insertStatement, transaction)
 		if err != nil {
