@@ -90,8 +90,7 @@ func getTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 
 			transactions = append(transactions, transaction)
 		}
-		var bytes []byte
-		err = json.Unmarshal(bytes, transactions)
+		bytes, err := json.Marshal(transactions)
 		if err != nil {
 			c.String(http.StatusInternalServerError,
 				fmt.Sprintf("Error unmarshalling transaction: %q", err))
