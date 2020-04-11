@@ -48,7 +48,7 @@ func postTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 		}
 
 		insertStatement := `INSERT INTO transactions
-				(date_time, cents_amount, currency_code, reference, merchant_name,
+				(datetime, cents_amount, currency_code, reference, merchant_name,
 				merchant_city, merchant_country_code, merchant_country_name, 
 				merchant_category_code, merchant_category_name)
 				VALUES (:date_time, :cents_amount, :currency_code, :reference, :merchant_name,
@@ -68,7 +68,7 @@ func postTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 func getTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var transactions []Transaction
-		queryStatement := `SELECT date_time, cents_amount, currency_code, reference, merchant_name,
+		queryStatement := `SELECT datetime, cents_amount, currency_code, reference, merchant_name,
 		merchant_city, merchant_country_code, merchant_country_name,
 			merchant_category_code, merchant_category_name FROM transactions`
 		rows, err := db.Queryx(queryStatement)
