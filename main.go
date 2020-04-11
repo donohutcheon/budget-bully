@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
@@ -14,7 +15,7 @@ import (
 )
 
 type Transaction struct {
-	DateTime int64 `json:"dateTime" binding:"required" db:"dateTime"`
+	DateTime time.Time `json:"dateTime" binding:"required" db:"dateTime"`
 	CentsAmount int64 `json:"centsAmount" binding:"required" db:"centsAmount"`
 	CurrencyCode string `json:"currencyCode" binding:"required" db:"currencyCode"`
 	Reference string `json:"reference" binding:"required" db:"reference"`
@@ -29,7 +30,7 @@ type Transaction struct {
 
 func postTransactionHandler(db *sqlx.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if _, err := db.Exec(`CREATE TABLE IF NOT EXISTS transactions (id SERIAL, dateTime bigint, 
+		if _, err := db.Exec(`CREATE TABLE IF NOT EXISTS transactions (id SERIAL, dateTime timestamptz, 
 										centsAmount NUMERIC (16, 2), currencyCode VARCHAR NOT NULL, 
 										reference VARCHAR NOT NULL, merchantName VARCHAR NOT NULL,
 										merchantCity VARCHAR NOT NULL, merchantCountryCode VARCHAR NOT NULL,
